@@ -1,0 +1,80 @@
+.page-header
+  %h1 Edit Template
+
+#edit-template-form.form-wrapper.marg-bottom{ 'ng-controller' => 'EditTemplateFormCtrl', 'ng-init'=> "init(#{ @template.to_json(include: :embed_rules) })" }
+  = simple_form_for @template, url: template_path(@template), html: { class: 'form-horizontal', name: 'TemplateForm' } do |f|
+    #template-editor-window
+      .image-wrapper{ 'ng-style' => "{ width: template.original_width + 200, height: template.original_height + 200 }" }
+        .img-cover
+        %canvas#img_canvas{ 'ng-style'=>"{'margin-left': current_rule.composite_position_x, 'margin-top': current_rule.composite_position_y}", height: "{{ current_rule.destination_size_y }}", width: "{{ current_rule.destination_size_x }}" }
+        = image_tag @template.image_url
+
+    .row.marg-bottom
+      .col-md-12
+        Original image size #{ @template.original_width }x#{ @template.original_height }
+
+    .panel.panel-default.embed-rule{ 'ng-repeat' => 'rule in template.embed_rules', 'ng-class' => '{"panel-primary": current_rule == rule  }' }
+      .panel-body
+        %input{ type: :hidden, name: "template[embed_rules_attributes][][_destroy]", 'ng-model'=>"rule.deleted", value: "{{ rule.deleted }}" }
+        .control-buttons.row-fluid
+
+          .col-md-12
+            %button.btn.btn-danger.btn-xs.pull-right{ 'ng-hide' => 'rule.deleted', 'eat-click' => true, 'ng-click' => 'remove_rule(rule)' } &times;
+            %button.btn.btn-primary.btn-xs{ 'ng-hide' => 'rule.deleted || current_rule == rule', 'eat-click' => true, 'ng-click' => 'select_rule(rule)' } Select
+
+        .alert.alert-danger{ 'ng-show'=>"rule.deleted" }
+          Embed rule will be deleted (
+          %a{ href: "#", 'ng-click'=>"rule.deleted=undefined", 'eat-click'=> true } Restore
+          )
+
+        .row{ 'ng-hide' => 'rule.deleted' }
+          %input{ type: :hidden, name: 'image_template[embed_rules_attributes][][id]', value: '{{ rule.id }}' }
+          .col-md-7
+            .row.marg-bottom
+              .col-md-3{ 'ng-repeat'=>'i in [0, 1, 2, 3]' }
+                .point
+                  .row
+                    .col-md-12.text-center {{ point_names[i] }}
+                  .row
+                    %input.col-md-6{ value: "{{ get_init_distortion_points(rule, i*2) }}", readonly: true, disabled: true, type: :number,  placeholder: 'X' }
+                    %input.col-md-6{ value: "{{ get_init_distortion_points(rule, i*2+1) }}", readonly: true, disabled: true, type: :number, placeholder: 'Y' }
+                    
+                    %input{ value: "{{ get_init_distortion_points(rule, i*2) }}", type: :hidden, name: "image_template[embed_rules_attributes][][destination_points][]" }
+                    %input{ value: "{{ get_init_distortion_points(rule, i*2+1) }}", type: :hidden, name: "image_template[embed_rules_attributes][][destination_points][]" }
+                  .row
+                    %input.col-md-6{ 'ng-change'=>'redraw_canvas()', 'ng-model'=>'rule.destination_points[i*4+2]', value: '{{ rule.destination_points[i*4+2] }}', type: :number, name: "image_template[embed_rules_attributes][][destination_points][]", placeholder: 'X' }
+                    %input.col-md-6{ 'ng-change'=>'redraw_canvas()', 'ng-model'=>'rule.destination_points[i*4+3]', value: '{{ rule.destination_points[i*4+3] }}', type: :number, name: "image_template[embed_rules_attributes][][destination_points][]", placeholder: 'Y' }
+          .col-md-5
+            .row.marg-bottom
+              .col-md-6
+                .row
+                  .col-md-12 Composite position
+                .row
+                  .col-md-6
+                    %label
+                      X
+                      %input.col-md-12{ name: 'image_template[embed_rules_attributes][][composite_position_x]', 'ng-change'=>'redraw_canvas()', 'ng-model'=>"rule.composite_position_x", type: :number }
+
+                  
+                  .col-md-6
+                    %label
+                      Y
+                      %input.col-md-12{ name: 'image_template[embed_rules_attributes][][composite_position_y]', 'ng-change'=>'redraw_canvas()', 'ng-model'=>"rule.composite_position_y", type: :number }
+
+              .col-md-6
+                .row
+                  .col-md-12 Destination size
+                .row
+                  .col-md-6
+                    %label
+                      Width
+                      %input.col-md-12{ name: 'image_template[embed_rules_attributes][][destination_size_x]', 'ng-change'=>'redraw_canvas()', 'ng-model'=>"rule.destination_size_x", type: :number }
+                 
+                  .col-md-6
+                    %label
+                      Height
+                      %input.col-md-12{ name: 'image_template[embed_rules_attributes][][destination_size_y]', 'ng-change'=>'redraw_canvas()', 'ng-model'=>"rule.destination_size_y", type: :number }
+    
+    %button.btn.btn-primary{ 'eat-click' => true, 'ng-click' => 'add_embed_rule()' } Add embed rule 
+
+    = f.submit "Save", class: 'btn btn-success'

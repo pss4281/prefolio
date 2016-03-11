@@ -1,0 +1,118 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any styles
+ * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
+ * file per style scope.
+ *
+ *= require_tree .
+ *= require jquery.Jcrop
+ *= require select2
+ *= require select2-bootstrap
+ *= require_self
+ */
+
+.text-center{ text-align: center; }
+.marg-bottom{ margin-bottom: 15px; }
+
+#edit-template-form{
+  #template-editor-window{
+    height: 500px;
+    overflow: scroll;
+    margin-bottom: 20px;
+    border: 1px solid #696969;
+    
+
+    .image-wrapper{
+      padding: 100px;
+
+      text-align: center;
+      background: asset-url('image_wrapper_bg.png');
+      position: relative;
+      img{ max-width: 100%; }
+      canvas{
+        position: absolute;
+        background-color: rgba(255, 255, 255, 0.5);
+        zoom: 100%;
+        border: 1px dashed #000AFF;
+      }
+    }
+  }
+
+  .point{ padding: 0 5px; }
+  .img-cover{
+    background: rgba(0, 0, 0, 0.5);
+    width: 1280px;
+    height: 960px;
+    position: absolute;
+    right: 100px;
+    left: 100px;
+  }
+}
+
+.template{
+  margin-bottom: 20px;
+  .img-wrapper{
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    img{ width: 100% }
+    .bg-img-template{
+      visibility: hidden;
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      background-color: #19BC9C;
+      opacity: 0;
+      -webkit-transition: all .26s ease-in;
+      -moz-transition: all .26s ease-in;
+      -o-transition: all .26s ease-in;
+      transition: all .26s ease-in;
+      /*-webkit-transition-delay: .1s;
+      -moz-transition-delay: .1s;
+      -o-transition-delay: .1s;
+      transition-delay: .1s;*/
+    }
+    &:hover {
+      .bg-img-template{
+        visibility: visible;
+        opacity: 1;
+        left: 0;
+      }
+    }
+    a{
+      overflow: hidden;
+      color: #FFF;
+      position: absolute;
+      display: block;
+      width: 166px;
+      height: 74px;
+      left: 50%;
+      top: 50%;
+      margin-top: -37px;
+      margin-left: -84px;
+      background-color: #26E2BD;
+      -webkit-transition: all .15s ease-out;
+      -moz-transition: all .15s ease-out;
+      -o-transition: all .15s ease-out;
+      transition: all .15s ease-out;
+      font-size: 40px;
+    }
+  }
+
+}
+
+
+
+#logo-img{
+  padding: 5px;
+  text-align: center;
+  img{ height: 50px; }
+}

@@ -1,0 +1,23 @@
+.page-header
+  %h1 Templates
+
+/ - @templates.in_groups_of(3, false) do |group|
+/   .row
+/     - group.each do |tpl|
+/       .col-md-4
+/         .template.panel.panel-default
+/           .panel-body
+/             = image_tag tpl.image_url(:small), class: 'img-responsive marg-bottom'
+/             = link_to "Choose", template_path(tpl), class: 'btn btn-success btn-block'
+
+
+.row
+  .col-md-4
+    - @col1_items.each do |tpl|
+      = render 'template', tpl: tpl
+  .col-md-4
+    - @col2_items.each do |tpl|
+      = render 'template', tpl: tpl
+  .col-md-4
+    - @col3_items.each do |tpl|
+      = render 'template', tpl: tpl

@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  image: MyString
+  transparency_color: MyString
+  destination_points: MyText
+  composite_position_x: 1
+  composite_position_y: 1
+  destination_size_x: 1
+  destination_size_y: 1
+  background_color: MyString
+
+two:
+  image: MyString
+  transparency_color: MyString
+  destination_points: MyText
+  composite_position_x: 1
+  composite_position_y: 1
+  destination_size_x: 1
+  destination_size_y: 1
+  background_color: MyString
