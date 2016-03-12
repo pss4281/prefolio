@@ -7,4 +7,12 @@ class ImageTemplate < ActiveRecord::Base
   has_many :embed_rules, dependent: :destroy
 
   accepts_nested_attributes_for :embed_rules, allow_destroy: true
+
+  after_create :add_embed_rule
+
+  private
+
+  def add_embed_rule
+    embed_rules.create(EmbedRule::DEFAULT_ATTRIBUTES)
+  end
 end

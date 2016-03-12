@@ -1,5 +1,5 @@
-.page-header
-  %h1 Edit Template
+= render 'progress_bar', step: 2
+
 
 #edit-template-form.form-wrapper.marg-bottom{ 'ng-controller' => 'EditTemplateFormCtrl', 'ng-init'=> "init(#{ @template.to_json(include: :embed_rules) })" }
   = simple_form_for @template, url: template_path(@template), html: { class: 'form-horizontal', name: 'TemplateForm' } do |f|

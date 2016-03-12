@@ -47,11 +47,11 @@
   .point{ padding: 0 5px; }
   .img-cover{
     background: rgba(0, 0, 0, 0.5);
-    width: 1280px;
-    height: 960px;
     position: absolute;
     right: 100px;
     left: 100px;
+    bottom: 100px;
+    top: 100px;
   }
 }
 
@@ -109,10 +109,5 @@
 
 }
 
+.navbar-brand img{ height: 24px; }
 
-
-#logo-img{
-  padding: 5px;
-  text-align: center;
-  img{ height: 50px; }
-}

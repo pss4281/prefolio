@@ -1,12 +1,13 @@
+
 .page-header
-  %h1 Upload template
+  %h2 New Template Wizard
+
+= render 'progress_bar', step: 1
 
 .row
   .col-md-12
-    %h1 Upload new template image
     = simple_form_for @template, url: templates_path, html: { class: 'form-vertical' } do |f|
-      .row
-        .col-md-4
-          = f.input :image, input_html: { class: 'form-control2' }
-        .col-md-8
-          = f.submit "Upload", class: 'btn btn-default'
+      .form-group
+        = f.input :image, label: false, input_html: { class: 'form-control2' }
+
+      = f.submit "Upload", class: 'btn btn-default'

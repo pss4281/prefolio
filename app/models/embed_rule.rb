@@ -1,5 +1,13 @@
 class EmbedRule < ActiveRecord::Base
 
+  DEFAULT_ATTRIBUTES = {
+    destination_points: %w(0 0 10 10 150 0 140 10 150 150 140 140 0 150 10 140),
+    composite_position_x: 100,
+    composite_position_y: 100,
+    destination_size_x: 150,
+    destination_size_y: 150
+  } 
+
   belongs_to :image_template
   serialize :destination_points
 

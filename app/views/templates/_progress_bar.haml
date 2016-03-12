@@ -1,0 +1,15 @@
+.row.form-group
+  .col-xs-12
+    %ul.nav.nav-pills.nav-justified.thumbnail.setup-panel
+      %li{ class: step == 1 ? "active" : "disabled" }
+        %a
+          %h4.list-group-item-heading Step 1
+          %p.list-group-item-text Upload template image
+      %li{ class: step == 2 ? "active" : "disabled" }
+        %a
+          %h4.list-group-item-heading Step 2
+          %p.list-group-item-text Specify embed area
+      %li{ class: step == 3 ? "active" : "disabled" }
+        %a
+          %h4.list-group-item-heading Step 3
+          %p.list-group-item-text Third step description
