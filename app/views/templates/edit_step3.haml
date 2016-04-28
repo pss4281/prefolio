@@ -1,0 +1,15 @@
+= render 'progress_bar', step: 3
+
+
+= simple_form_for @template, url: template_path(@template), html: { class: 'form-horizontal', name: 'TemplateForm' } do |f|
+  .row.marg-bottom
+    .col-xs-6
+      = image_tag @template.image_url(:with_placeholder), class: "img-responsive"
+    .col-xs-6
+      = f.input :title, input_html: {class: "form-control"}
+      = f.input :description, input_html: {class: "form-control"}
+  
+  .row
+    .col-md-12
+      =link_to "< Back to step 2", edit_template_path(@template), class: "btn btn-success "
+      %button.btn.btn-success.pull-right{ type: :submit, name: :commit, value: "template-complete" } Save

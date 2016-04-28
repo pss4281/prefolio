@@ -3,6 +3,7 @@
 
 #edit-template-form.form-wrapper.marg-bottom{ 'ng-controller' => 'EditTemplateFormCtrl', 'ng-init'=> "init(#{ @template.to_json(include: :embed_rules) })" }
   = simple_form_for @template, url: template_path(@template), html: { class: 'form-horizontal', name: 'TemplateForm' } do |f|
+
     #template-editor-window
       .image-wrapper{ 'ng-style' => "{ width: template.original_width + 200, height: template.original_height + 200 }" }
         .img-cover
@@ -12,6 +13,10 @@
     .row.marg-bottom
       .col-md-12
         Original image size #{ @template.original_width }x#{ @template.original_height }
+
+    .row.marg-bottom
+      .col-md-12
+        %button.btn.btn-xs.btn-primary{ 'eat-click' => true, 'ng-click' => 'add_embed_rule()' } Add embed rule
 
     .panel.panel-default.embed-rule{ 'ng-repeat' => 'rule in template.embed_rules', 'ng-class' => '{"panel-primary": current_rule == rule  }' }
       .panel-body
@@ -75,6 +80,6 @@
                       Height
                       %input.col-md-12{ name: 'image_template[embed_rules_attributes][][destination_size_y]', 'ng-change'=>'redraw_canvas()', 'ng-model'=>"rule.destination_size_y", type: :number }
     
-    %button.btn.btn-primary{ 'eat-click' => true, 'ng-click' => 'add_embed_rule()' } Add embed rule 
-
-    = f.submit "Save", class: 'btn btn-success'
+    .row
+      .col-md-12
+        %button.btn.btn-success.pull-right{ type: :submit, name: :commit, value: "move-to-step-3" } Save and move to next step >

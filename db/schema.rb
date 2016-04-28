@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140702235821) do
+ActiveRecord::Schema.define(version: 20160428165003) do
 
   create_table "embed_rules", force: true do |t|
     t.string  "transparency_color"
@@ -30,6 +30,8 @@ ActiveRecord::Schema.define(version: 20140702235821) do
     t.datetime "updated_at"
     t.integer  "original_height"
     t.integer  "original_width"
+    t.string   "title"
+    t.text     "description"
   end
 
   create_table "processed_images", force: true do |t|

@@ -19,6 +19,8 @@ class TemplatesController < ApplicationController
 
   def edit
     @template = ImageTemplate.find params[:id]
+    render 'edit_step3' and return if params[:step] == "3"
+    render 'edit_step2'
   end
 
   def update
@@ -26,7 +28,13 @@ class TemplatesController < ApplicationController
     @template.assign_attributes(update_params)
     @template.image.recreate_versions!
     if @template.save
-      redirect_to edit_template_path(@template), notice: "Saved"
+      if params[:commit] == "move-to-step-3"
+        redirect_to edit_template_path(@template, step: '3'), notice: "Saved"
+      elsif params[:commit] == "template-complete"
+        redirect_to template_path(@template)
+      else
+        redirect_to edit_template_path(@template), notice: "Saved"
+      end
     else
       render :edit
     end
