@@ -9,7 +9,7 @@
       = f.input :title, input_html: {class: "form-control"}
       = f.input :description, input_html: {class: "form-control"}
   
-  .row
+  .row.marg-bottom
     .col-md-12
       =link_to "< Back to step 2", edit_template_path(@template), class: "btn btn-success "
       %button.btn.btn-success.pull-right{ type: :submit, name: :commit, value: "template-complete" } Save

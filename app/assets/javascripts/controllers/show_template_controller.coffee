@@ -14,13 +14,10 @@ prefolioApp.controller('ShowTemplateCtrl', ['$scope', '$http', '$upload', ($scop
 
   $scope.init = (template)->
     $scope.image_url = template.image.with_placeholder.url
-    $scope.template = template
-
+    $scope.template  = template
 
   $scope.onFileSelect = ($files, rule_id) ->
     file = $files[0]
-    # console.log rule_id
-    method = 'POST'
     url = Routes.template_processed_images_path
       template_id: $scope.template.id
       rule_id: rule_id

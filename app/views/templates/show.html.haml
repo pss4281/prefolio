@@ -1,5 +1,5 @@
 .page-header
-  %h1 Template
+  %h1= @template.title.present? ? @template.title : "Template"
 
 #show-template{ 'ng-controller' => 'ShowTemplateCtrl', 'ng-init' => "init(#{ @template.to_json(include: [:embed_rules]) })" }
   .row
@@ -8,20 +8,30 @@
         %img.img-responsive{ 'ng-src' => '{{ image_url }}' }
         .dropzone{ 'ng-repeat' => 'rule in template.embed_rules', 'ng-style' => 'positionForDropzone(rule)' }
           %label{ for: "file"}
-            %input#file{ name: "processed_image[image]", 'ng-file-select'=>"onFileSelect($files, rule.id)",  type: "file" }
+            %input.file{ name: "processed_image[image]", 'ng-file-select'=>"onFileSelect($files, rule.id)",  type: "file" }
     
     //////////////////
     .col-md-4
       .control-group.error{ 'ng-cloak' => true }
-        .span4
-          %label{ for: "file"}
-            .btn.file_input_wrapper.btn-block
-              = t('.add_image')
-              %input#file{ name: "processed_image[image]", 'ng-file-select'=>"onFileSelect($files)", type: "file" }
-        .span8
-          .progress.progress-striped.active{ 'ng-show' => 'is_uploading_photo' }
-            .bar{ style: "width:{{ uploaded_percents }}%" }= t('.uploading')
+        .progress.progress-striped.active{ 'ng-show' => 'is_uploading_photo' }
+          .bar{ style: "width:{{ uploaded_percents }}%" }= t('.uploading')
         %span.help-inline{ 'ng-show' => 'photo_errors' } {{ photo_errors }}
+
+      %h4 Description
+      - if (description = @template.description).present?
+        = description
+      - else
+        %p.text-muted Description is not specified
+
+      %h4 Date
+      %p.text-muted= l(@template.created_at, format: :short)
+
+      - if true
+        %ul.list-unstyled
+          %li
+            = link_to "Edit embedding area", edit_template_path(@template)
+          %li
+            = link_to "Edit Title & Description", edit_template_path(@template, step: "3")
 
   .row.marg-bottom
     %hr

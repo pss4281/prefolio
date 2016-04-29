@@ -12,5 +12,4 @@
     / Collect the nav links, forms, and other content for toggling
     #bs-example-navbar-collapse-1.collapse.navbar-collapse
       %ul.nav.navbar-nav
-        %li.active= link_to "Add Template", :new_template
-        %li= link_to "Templates", :templates
+        %li{ class: ("active" if current_page?(new_template_path)) }= link_to "Add Template", :new_template

@@ -63,9 +63,6 @@ class TemplatesController < ApplicationController
   end
 
   def update_params
-    params.require(:image_template).permit(embed_rules_attributes: [
-      :id, :composite_position_x, :composite_position_y,
-      :destination_size_x, :destination_size_y, destination_points: []
-    ])
+    params.require(:image_template).permit!
   end
 end
